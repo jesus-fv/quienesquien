@@ -47,3 +47,9 @@ personaje(tom / [hombre, gafas, calva, pelo_negro, ojos_azules, boca_pequeña, c
 personaje(susan / [mujer, pelo_largo, pelo_blanco, canas, ojos_marrones, labios_gruesos, mofletes, mejillas_sonrosadas, nariz_pequeña, raya_al_lado]).
 
 personaje(max / [hombre, bigote, pelo_negro, ojos_marrones, boca_grande, labios_gruesos, nariz_grande, orejas_grandes, pelo_corto]).
+
+% Predicados para consultar características de los personajes
+
+tiene(Nombre , Caracteristica) :-
+    personaje(Nombre / Caracteristicas),
+    member(Caracteristica, Caracteristicas).
