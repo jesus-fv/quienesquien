@@ -48,8 +48,17 @@ personaje(susan / [mujer, pelo_largo, pelo_blanco, canas, ojos_marrones, labios_
 
 personaje(max / [hombre, bigote, pelo_negro, ojos_marrones, boca_grande, labios_gruesos, nariz_grande, orejas_grandes, pelo_corto]).
 
-% Predicados para consultar características de los personajes
 
 tiene(Nombre , Caracteristica) :-
     personaje(Nombre / Caracteristicas),
     member(Caracteristica, Caracteristicas).
+
+caracteristicas(Personaje, C) :-
+    personaje(Personaje / C).
+
+escribir_caracteristicas([]) :-
+    nl.
+
+escribir_caracteristicas([C|Resto]) :-
+    write(C), write(' - '),
+    escribir_caracteristicas(Resto).
