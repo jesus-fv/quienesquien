@@ -8,19 +8,30 @@ El juego de *Quién es quién* encaja perfectamente en la categoría de los prob
 
 ### 2. Entorno del agente
 
-Resume las características del entorno en una tabla con el formato:
+Entorno de tareas | Observable| Agentes | Determinista / Estocástico | Episódico / Secuencial | Estático / Dinámico | Discreto / Continuo 
+:---: | :---: | :---: | :---: | :---: | :---: | :---: |
+ Quién es quién | Parcialmente | Multiagente | Determinista | Secuencial | Estático |  Discreto |
 
-Entorno de tareas | Observable| Agentes | Determinista / Estocástico | Episódico / Secuencial | Estático / Dinámico | Discreto / Continuo | Conocido
-:---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
- Quién es quién | Parcialmente | Multiagente | Estocástico | Secuencial | Estático |  Discreto | Conocido |
+Parcialmente observable: No se tiene conocimiento del personaje elegido por el rival. Solo se consigue información a través de las preguntas.
+
+Multiagente: Se considera un entorno multiagente, por que se necesitan dos agentes para jugar, uno selecciona al personaje y responde a las preguntas, el otro es el que tiene que adivinarlo.
+
+Determinista: Las respuestas a las preguntas son determinsitas y no interviene ningún tipo de azar
+
+Secuencial: Las preguntas se hacen una tras otra hasta cumplir la función objetivo, y cada una de ellas depende de la respuesta anterior.
+
+Estático: El entorno es estático por que ni las respuestas ni las características cambian cuando el agente está deliberando.
+
+Discreto: El conjunto de personajes, características y preguntas es finito.
+
 
 ### 3. Algoritmo.
 
 **Algoritmo Voraz**
 
-Se dice que un algoritmo es avaro cuando el camino elegido se considera la mejor opción basándose en un criterio específico sin considerar consecuencias futuras, es decir, se hace la mejor elección local en cada paso con la esperanza de encontrar una solución global óptima.
+Se dice que un algoritmo es avaro cuando el camino elegido se considera la mejor opción basándose en un criterio específico sin considerar consecuencias futuras.
 
-Este tipo de algoritmo se puede aplicar sobre este problema porque cumple una propiedad llamada *greedy-choice property*, que consiste en tomar decisiones localmente óptimas que conducen a una solución global. En el caso del quién es quién, a la hora de hacer cada pregunta se eligirá la categoría a escoger que divida el conjunto de personajes en subconjuntos más pequeños. Así, sucesivamente, se reduce el conjunto de personajes hasta llegar a que solo quede uno en el tablero que cumpla la función objetivo: determinar si es el personaje elegido.
+Este tipo de algoritmos se puede aplicar al juego quién es quién, porque cumple una propiedad llamada *greedy-choice property*, que consiste en tomar decisiones localmente óptimas que conducen a una solución global.
 
 * Ventajas de utilizar este tipo de algoritmos:
 
@@ -30,6 +41,10 @@ Este tipo de algoritmo se puede aplicar sobre este problema porque cumple una pr
 * Limitaciones:
 
  - Pierden mejores soluciones al tomar decisiones localmente óptimas.
+
+#### Implementación
+
+En cada una de las rondas del juego, a la hora de elegir qué pregunta hacer, se prioriza la característica que divida de forma equitativa el listado de personajes, con la expectativa de hacerlo de la forma más balanceada posible.
 
 ### 4. Estrutura del agente
 
