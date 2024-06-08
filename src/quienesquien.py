@@ -3,50 +3,45 @@ from pyswip import Prolog
 prolog = Prolog()
 prolog.consult('quienesquien.pl')
 
-def contar_caracteristicas(personajes):
-    pass
-
-def mostrar_tablero(personajes):
+def show_board(characters):
     
-    listado_personajes = personajes.copy()
+    characters_list = characters.copy()
+    
+    print("---------------------------------------------------------------")
     
     for i in range(3):
         for j in range(8):
-            print(listado_personajes.pop(0), end="\t")
+            print(characters_list.pop(0), end="\t")
         print("\n")
+        
+    print("---------------------------------------------------------------")
 
-def selecciona_personaje():
+def select_character():
     
     print("*Quién es quién*")
     
-    print("---------------------------------------------------------------")
+    board = list(prolog.query("lift_board(Board)."))
     
-    tablero = list(prolog.query("levantar_tablero(Tablero)."))
+    characters_list = board[0]['Board']
     
-    lista_personajes = tablero[0]['Tablero']
-    
-    mostrar_tablero(lista_personajes)
-    
-    print("---------------------------------------------------------------")
+    show_board(characters_list)
     
     while True:
     
-        personaje_seleccionado = input("Selecciona a un personaje: ").strip().lower()
+        select_character = input("Selecciona a un personaje: ").strip().lower()
         
-        if personaje_seleccionado not in lista_personajes:
-            print(f"{personaje_seleccionado} no está en el tablero o está mal escrito")
+        if select_character not in characters_list:
+            print(f"{select_character} no está en el tablero o está mal escrito")
         else:
             break
     
-    caracteristicas = list(prolog.query(f"caracteristicas({personaje_seleccionado}, C)."))
-    
-    print(f"{personaje_seleccionado} tiene las siguientes características: {caracteristicas[0]['C']}")
-    
-    return personaje_seleccionado
+    return select_character, characters_list
     
     
 def main():
-    personaje_seleccionado = selecciona_personaje()
+    
+    select_character_, characters_list = select_character()
+    print(select_character_)
 
 if __name__ == '__main__':
     main()
