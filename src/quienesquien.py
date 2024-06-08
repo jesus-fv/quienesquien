@@ -1,7 +1,32 @@
 from pyswip import Prolog
+from collections import Counter
 
 prolog = Prolog()
 prolog.consult('quienesquien.pl')
+
+def choose_question(characters):
+    
+    all_features = []
+    
+    half_characters = len(characters) / 2
+    
+    for p in characters:
+        features = list(prolog.query(f"features({p}, F)."))
+        for c in features[0]['F']:
+            all_features.append(c)
+    
+    count_features = Counter(all_features)
+    value_features = list(count_features.values())
+    
+    best_subset = min(value_features, key=lambda x: abs(x - half_characters))
+    
+    best_feature = ''
+    
+    for f, count in count_features.items():
+        if count == best_subset:
+            best_feature = f
+    
+    return best_feature
 
 def show_board(characters):
     
@@ -41,7 +66,13 @@ def select_character():
 def main():
     
     select_character_, characters_list = select_character()
-    print(select_character_)
+    
+    features_characters = list(prolog.query(f"features({select_character_}, F)."))
+    print(f"{select_character_.upper()} tiene las siguientes características: {features_characters[0]['F']}")
+
+    features = choose_question(characters_list)
+    
+    print(features)
 
 if __name__ == '__main__':
     main()
