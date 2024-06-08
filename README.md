@@ -2,6 +2,28 @@
 Quién es quién 
 =============================
 
+### Instalación
+
+Crea un entorno virtual:
+
+```
+python -m venv quienesquien
+```
+Para UNIX (Linux, MacOS, etc.):
+
+```
+source quienesquien/bin/activate
+```
+
+Para Windows:
+```
+quienesquien\Scripts\activate
+```
+
+```
+pip install -r requirements.txt
+```
+
 ### 1. Optimización vs Búsquedas
 
 El juego de *Quién es quién* encaja perfectamente en la categoría de los problemas de optimización, ya que el objetivo consiste en ser el primero en determinar qué personaje seleccionó el oponente. Si bien existen distintas estrategias para lograrlo, el reto consiste en encontrar el camino más eficiente para cumplir la función objetivo, que en este caso es acertar la carta del rival, en los menores intentos posibles.
