@@ -4,6 +4,11 @@ from collections import Counter
 prolog = Prolog()
 prolog.consult('quienesquien.pl')
 
+def  objective(characters_list, select_character_):
+    if len(characters_list) == 1 and select_character_ == characters_list[0]:
+        return False
+    return True
+
 def choose_question(characters):
     
     all_features = []
@@ -28,6 +33,26 @@ def choose_question(characters):
     
     return best_feature
 
+def update_characters(characters, selected_feature, response):
+    
+    remaining_characters = []
+    
+    if response == 'si':
+        
+        for character in characters:
+            features = list(prolog.query(f"features({character}, F)."))
+            if selected_feature in features[0]['F']:
+                remaining_characters.append(character)
+        
+    elif response == 'no':
+        
+        for character in characters:
+            features = list(prolog.query(f"features({character}, F)."))
+            if selected_feature not in features[0]['F']:
+                remaining_characters.append(character)
+    
+    return remaining_characters
+
 def show_board(characters):
     
     characters_list = characters.copy()
@@ -36,7 +61,10 @@ def show_board(characters):
     
     for i in range(3):
         for j in range(8):
-            print(characters_list.pop(0), end="\t")
+            if characters_list:
+                print(characters_list.pop(0), end="\t")
+            else:
+                print("-", end="\t")
         print("\n")
         
     print("---------------------------------------------------------------")
@@ -64,15 +92,31 @@ def select_character():
     
     
 def main():
-    
     select_character_, characters_list = select_character()
     
-    features_characters = list(prolog.query(f"features({select_character_}, F)."))
-    print(f"{select_character_.upper()} tiene las siguientes características: {features_characters[0]['F']}")
-
-    features = choose_question(characters_list)
+    rounds = 0
     
-    print(features)
+    while objective(characters_list, select_character_):
+        
+        print()
+    
+        features_characters = list(prolog.query(f"features({select_character_}, F)."))
+        
+        print(f"{select_character_.upper()} tiene las siguientes características: {features_characters[0]['F']}")
+
+        selected_feature = choose_question(characters_list)
+        
+        response = input(f"Tu personajes tiene {selected_feature} [si/no]: ").strip().lower()
+        
+        characters_list = update_characters(characters_list, selected_feature, response)
+        
+        show_board(characters_list)
+        
+        rounds +=1
+        
+    print()
+    print(f"Tu personaje es {(characters_list[0]).upper()}")
+    print(f"Rondas: {rounds}")
 
 if __name__ == '__main__':
     main()
