@@ -4,25 +4,12 @@ Quién es quién
 
 ### Instalación
 
-Crea un entorno virtual:
-
-```
-python -m venv quienesquien
-```
-Para UNIX (Linux, MacOS, etc.):
-
-```
-source quienesquien/bin/activate
-```
-
-Para Windows:
-```
-quienesquien\Scripts\activate
-```
-
 ```
 pip install -r requirements.txt
 ```
+Instalar SWI-Prolog en tu sistema operativo.  
+Descarga la [versión estable SWI-Prolog](https://www.swi-prolog.org/download/stable).
+
 
 ### 1. Optimización vs Búsquedas
 
