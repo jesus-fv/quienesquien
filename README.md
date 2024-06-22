@@ -2,7 +2,7 @@
 Quién es quién 
 =============================
 
-### Instalación
+### Instalación y uso
 
 ```
 pip install -r requirements.txt
@@ -10,6 +10,17 @@ pip install -r requirements.txt
 Instalar SWI-Prolog en tu sistema operativo.  
 Descarga la [versión estable SWI-Prolog](https://www.swi-prolog.org/download/stable).
 
+Al comienzo del juego se mostrará el tablero con todos los personajes y se deberá seleccionar uno de ellos. Una vez elegido, se mostrarán las características que tiene ese personaje. Luego, el programa tratará de adivinar quién es mediante una serie de preguntas sobre sus características.
+
+Inicio del juego con el siguiente comando desde la raíz del proyecto:
+
+```
+python src/quienesquien.py
+```
+
+### Tablero
+
+![Modelo general agente inteligente](./doc/tablero.jpg)
 
 ### 1. Optimización vs Búsquedas
 

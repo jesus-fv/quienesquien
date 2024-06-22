@@ -1,8 +1,12 @@
 from pyswip import Prolog
 from collections import Counter
+import os
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+pl = os.path.join(current_dir, 'quienesquien.pl')
 
 prolog = Prolog()
-prolog.consult('quienesquien.pl')
+prolog.consult(pl)
 
 def  objective(characters_list, select_character_):
     if len(characters_list) == 1 and select_character_ == characters_list[0]:
@@ -92,6 +96,7 @@ def select_character():
     
     
 def main():
+    
     select_character_, characters_list = select_character()
     
     rounds = 0
